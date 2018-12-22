@@ -24,9 +24,8 @@ class Song
   end
 
   def self.create_by_name(song_name)
-    song = self.new
+    song = self.create
     song.name = song_name
-    @@all << song
     song
   end
 
@@ -44,7 +43,7 @@ class Song
   end
 
   def self.alphabetical
-    @@all.sort_by {|a| a.name }
+    self.all.sort_by {|a| a.name }
   end
 
   def self.new_from_filename(file_name)
@@ -60,10 +59,10 @@ class Song
   end
 
   def self.create_from_filename(file_name)
-    @@all << self.new_from_filename(file_name)
+    self.all << self.new_from_filename(file_name)
   end
 
   def self.destroy_all
-    @@all.clear
+    self.all.clear
   end
 end
