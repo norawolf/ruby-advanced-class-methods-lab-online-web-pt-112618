@@ -13,18 +13,18 @@ class Song
 
   def self.create
     song = self.new
-    @@all << song
+    song.save
     song
   end
 
   def self.new_by_name(song_name)
-    song = self.new
+    song = self.create
     song.name = song_name
     song
   end
 
   def self.create_by_name(song_name)
-    song = self.create
+    song = self.create #Calling .create method creates a new instance of Song, also saves it into @@all.
     song.name = song_name
     song
   end
@@ -34,12 +34,15 @@ class Song
   end
 
   def self.find_or_create_by_name(song_name)
-    # if the song instance already exists, return it
+    # refactoring
+    self.find_by_name(song_name) || self.create_by_name(song_name)
+
+    # original attempt: if the song instance already exists, return it
     # if not, create the new song instance and return it
-    if self.find_by_name(song_name)
-      self.find_by_name(song_name)
-    else self.create_by_name(song_name)
-    end
+    # if self.find_by_name(song_name)
+    #   self.find_by_name(song_name)
+    # else self.create_by_name(song_name)
+    # end
   end
 
   def self.alphabetical
